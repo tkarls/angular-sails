@@ -6,12 +6,8 @@ var gulp = require('gulp'),
     header = require('gulp-header'),
     footer = require('gulp-footer'),
     ngAnnotate = require('gulp-ng-annotate'),
-    gulpKarma = require('gulp-karma'),
     pkg = require('./package.json'),
     files = require('./files');
-
-var karmaTestConfig = gulpKarma({configFile: 'karma.conf.js', action: 'run'});
-
 
 gulp.task('build-js', function () {
     return gulp.src(files.mergeFilesFor('src'))
@@ -28,18 +24,6 @@ gulp.task('build-js', function () {
 gulp.task('dist-js', ['build-js'], function () {
     return gulp.src('./build/*.js')
     .pipe(gulp.dest('./dist/'));
-});
-
-gulp.task('test', function () {
-    return gulp.src(files.mergeFilesFor('karma-src')).pipe(karmaTestConfig);
-});
-
-gulp.task('test-build', ['build-js'], function () {
-    return gulp.src(files.mergeFilesFor('karma-build')).pipe(karmaTestConfig);
-});
-
-gulp.task('test-min', ['build-js'], function () {
-    return gulp.src(files.mergeFilesFor('karma-min')).pipe(karmaTestConfig);
 });
 
 gulp.task('watch', function () {
